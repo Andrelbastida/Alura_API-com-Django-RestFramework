@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from escola.models import Aluno, Curso
-from serializer import AlunoSerializer, CursoSerializer
+from escola.serializer import AlunoSerializer, CursoSerializer
 
 class AlunosViewSet(viewsets.ModelViewSet):
     """Exibindo todos os alunos e alunas"""
@@ -19,11 +19,11 @@ class CursosViewSet(viewsets.ModelViewSet):
 
 
 #  from django.shortcuts import render ### Este import , renderiza uma página padrão.
-#from django.http import JsonResponse # quando chegar uma determinada requisiação para uma URL, ele retornará um JSON
+#  from django.http import JsonResponse # quando chegar uma determinada requisiação para uma URL, ele retornará um JSON
 
 
 # Create your views here.
-#def alunos(request):
+# def alunos(request):
 #    if request.method == 'GET':
 #        aluno = {'id' : 1 , 'nome' : 'Andre'}
 #        return JsonResponse(aluno) 
