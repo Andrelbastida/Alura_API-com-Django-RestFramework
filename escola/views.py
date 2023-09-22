@@ -1,6 +1,6 @@
-from rest_framework import viewsets
-from escola.models import Aluno, Curso
-from escola.serializer import AlunoSerializer, CursoSerializer
+from rest_framework import viewsets, generics
+from escola.models import Aluno, Curso , Matricula
+from escola.serializer import AlunoSerializer, CursoSerializer , MatriculaSerializer, ListaMatriculaAlunoSerializer
 
 class AlunosViewSet(viewsets.ModelViewSet):
     """Exibindo todos os alunos e alunas"""
@@ -12,8 +12,18 @@ class CursosViewSet(viewsets.ModelViewSet):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
 
+class MatriculasViewSet(viewsets.ModelViewSet):
+    """Listando todas as Matrículas """
+    queryset = Matricula.objects.all()
+    serializer_class = MatriculaSerializer
 
 
+class ListaMatriculasAluno(generics.ListAPIView):
+    """Listando as matrículas de um(a) Aluno(a)"""
+    def get_queryset(self): # Estamos criando uma função 
+        queryset = Matricula.objects.filter(aluno_id= self.kwargs['pk']) # De todas as matriculas, queremos as que estejam cadastradas ao "ID" de tal aluno
+        return queryset
+    serializer_class = ListaMatriculaAlunoSerializer
 
 
 
