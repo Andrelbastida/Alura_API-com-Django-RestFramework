@@ -25,11 +25,12 @@ class MatriculaSerializer(serializers.ModelSerializer):
 class ListaMatriculaAlunoSerializer(serializers.ModelSerializer):
     curso= serializers.ReadOnlyField(source= 'curso.descricao')# aqui, ao invés de retornar o id do curso, irá retornar a "descrição"
     #ReadOnlyField :
-    #periodo= serializers.SerializerMethodField('get_periodo') # para descrevermos o PERIODO, devemos criar uma função : Na linha 35 está descrita a função para obter o periodo 
+    periodo= serializers.SerializerMethodField() # para descrevermos o PERIODO, devemos criar uma função : Na linha 35 está descrita a função para obter o periodo 
     #SerializerMethodFiel :
     class Meta:
         model = Matricula
         fields = ['curso', 'periodo']
-        
 
-        # def get_periodo
+
+    def get_periodo(self, obj):
+        return obj.get_periodo_display()
