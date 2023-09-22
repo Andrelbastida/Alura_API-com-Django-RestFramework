@@ -9,14 +9,18 @@ class AlunoSerializer (serializers.ModelSerializer):
 
 
 class CursoSerializer(serializers.ModelSerializer):
-    nivel = serializers.SerializerMethodField()
+    # nivel = serializers.SerializerMethodField() # Utilizando este campo, o forms no django rest, ficará sem o campo de nível disponível para selecionar 
+    # class Meta: 
+    #     model= Curso
+    #     fields = ['id', 'codigo_curso', 'descricao', 'nivel']
     class Meta: 
         model= Curso
-        
-        fields = ['id', 'codigo_curso', 'descricao', 'nivel']
+        fields = '__all__'
 
     def get_nivel(self, obj): # Esta função irá retornar o nível por escrito 
         return obj.get_nivel_display()
+
+
 
         
 class MatriculaSerializer(serializers.ModelSerializer):
@@ -39,3 +43,10 @@ class ListaMatriculaAlunoSerializer(serializers.ModelSerializer):
 
     def get_periodo(self, obj): # Esta função irá retornar o período por escrito 
         return obj.get_periodo_display()
+
+
+class ListaAlunosMatriculadosSerializer(serializers.ModelSerializer):
+    aluno_nome = serializers.ReadOnlyField(source='alunos.nome')
+    class Meta:
+        model = Matricula
+        fields = ['aluno_nome']
