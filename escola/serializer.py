@@ -9,9 +9,14 @@ class AlunoSerializer (serializers.ModelSerializer):
 
 
 class CursoSerializer(serializers.ModelSerializer):
+    nivel = serializers.SerializerMethodField()
     class Meta: 
         model= Curso
-        fields = '__all__'
+        
+        fields = ['id', 'codigo_curso', 'descricao', 'nivel']
+
+    def get_nivel(self, obj): # Esta função irá retornar o nível por escrito 
+        return obj.get_nivel_display()
 
         
 class MatriculaSerializer(serializers.ModelSerializer):
@@ -32,5 +37,5 @@ class ListaMatriculaAlunoSerializer(serializers.ModelSerializer):
         fields = ['curso', 'periodo']
 
 
-    def get_periodo(self, obj):
+    def get_periodo(self, obj): # Esta função irá retornar o período por escrito 
         return obj.get_periodo_display()
