@@ -17,8 +17,8 @@ class CursoSerializer(serializers.ModelSerializer):
         model= Curso
         fields = '__all__'
 
-    def get_nivel(self, obj): # Esta função irá retornar o nível por escrito 
-        return obj.get_nivel_display()
+    # def get_nivel(self, obj): # Esta função irá retornar o nível por escrito 
+    #     return obj.get_nivel_display()
 
 
 
@@ -40,13 +40,12 @@ class ListaMatriculaAlunoSerializer(serializers.ModelSerializer):
         model = Matricula
         fields = ['curso', 'periodo']
 
-
     def get_periodo(self, obj): # Esta função irá retornar o período por escrito 
         return obj.get_periodo_display()
 
 
 class ListaAlunosMatriculadosSerializer(serializers.ModelSerializer):
-    aluno_nome = serializers.ReadOnlyField(source='alunos.nome')
+    aluno_nome = serializers.ReadOnlyField(source='aluno.nome')
     class Meta:
         model = Matricula
         fields = ['aluno_nome']
